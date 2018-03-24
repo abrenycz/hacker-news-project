@@ -23,6 +23,8 @@ const list = [
 ]
 
 const date_ComputedPropertyNameTest = 'date';
+
+const isSearched = searchTerm => item => item.title.toLowerCase().includes(searchTerm.toLowerCase());
   
 
 class App extends Component { 
@@ -30,10 +32,12 @@ class App extends Component {
 		super(props);
 		this.state = {
 			list,
+			searchTerm: '',
 			[date_ComputedPropertyNameTest]: 25,
 		};
 
 		this.onDismiss = this.onDismiss.bind(this);
+		this.onSearchChange = this.onSearchChange.bind(this);
 
 	}
 
@@ -41,10 +45,21 @@ class App extends Component {
 			const isNotId = item => item.objectID !== id; const updatedList = this.state.list.filter(isNotId); this.setState({ list: updatedList });
 	}
 
+	onSearchChange(event){
+		this.setState({searchTerm: event.target.value});
+	}
+
 	render() { 
 		return ( 
 			<div className="App">
-				{this.state.list.map(item => 
+				<form>
+					<input type="text" 
+					  onChange={this.onSearchChange}
+					  />
+				</form>
+				<br />
+
+				{this.state.list.filter(isSearched(this.state.searchTerm)).map(item => 
 					<div key={item.objectID}> 
 						<span> 
 						  <a href={item.url}>{item.title}</a>
