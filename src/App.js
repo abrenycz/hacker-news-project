@@ -67,36 +67,17 @@ class App extends Component {
 	}
 }
 
-class Button extends Component {
-	render(){
-		const {
-			onClick,
-			className = '',
-			children,
-		} = this.props;  // passed in properties deconstructed
-		
-		return(
-			<button
-				onClick={onClick}
-				className={className}
-				type="button"
-			>
+const Button = ({onClick, className = '', children}) =>
+		<button
+			onClick={onClick}
+			className={className}
+			type="button"
+		>
 			{children}
-			</button>
-		);
-	}
-}
+		</button>
 
-class Table extends Component { 
-	render() { 
-		const { 
-			list, 
-			pattern, 
-			onDismiss 
-		} = this.props;
-
-		return ( 
-			<div> 
+const Table = ({list, pattern, onDismiss}) =>
+		<div> 
 			{list.filter(isSearched(pattern)).map(item => 
 				<div key={item.objectID}> 
 				<span> 
@@ -112,26 +93,15 @@ class Table extends Component {
 				 </span> 
 				 </div> 
 			)} 
-			</div> 
-			); 
-	} 
-}
+		</div>
 
-class Search extends Component { 
-	render() 
-	{ 
-		const { 
-			value, 
-			onChange 
-		} = this.props; 
-
-		return ( 
-			<form> 
-			<input type="text" value={value} onChange={onChange} /> 
-			</form> 
-		); 
-	} 
-}
-
+const Search = ({value, onChange, children}) => 
+	<form>
+		{children} 
+		<input 
+		type="text" 
+		value={value} 
+		onChange={onChange} />
+	</form> 
 
 export default App;
